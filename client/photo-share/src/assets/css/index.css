@@ -1,0 +1,11 @@
+@import './home.module.css';
+@import './sidbar.css';
+
+
+
+
+
+.sBar:hover HomeDiv {
+    display: inline-block;
+    margin-right: 1vw;
+}
