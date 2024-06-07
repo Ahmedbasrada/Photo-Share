@@ -1,0 +1,9 @@
+cd client
+cd photo-share
+npm i
+cd ..
+cd ..
+cd server
+npm i
+
+

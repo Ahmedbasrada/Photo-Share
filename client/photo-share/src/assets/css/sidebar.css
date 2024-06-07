@@ -1,0 +1,105 @@
+@import './home.module.css';
+
+.sBar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 8vw;
+    background-color: rgb(31, 31, 31);
+    border-radius: 0 3vh 3vh 0;
+    transition: width 0.3s ease;
+    overflow-x:scroll;
+    z-index: 1000;
+    color: #a1a1a1;
+
+    
+}
+
+h5{
+    position: absolute;
+    top: 0.8vw;
+    left: 5.5vw;
+    cursor:context-menu;
+}
+
+
+
+
+.sBar::-webkit-scrollbar {
+    width: 0.586vw;
+    height: 1.264vh;
+  }
+  
+  .sBar::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #f3efef;
+  }
+
+
+
+.sBar:hover {
+    width: 15vw;
+}
+
+.sBar ul {
+    
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    
+}
+
+.sBar ul li {
+    padding: 2vh;
+    border-radius: 3vh;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.sBar ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sBar ul li span {
+    display: none;
+}
+
+.sBar:hover ul li span {
+    display: inline-block;
+    margin-right: 1vw;
+}
+
+
+
+
+
+.command:hover {
+    background-color: rgb(73, 73, 73);
+}
+
+.homeName{
+    cursor: context-menu;
+}
+
+
+
+.homeLogo{
+    position: relative;
+    top: 1vh
+}
+
+
+.Allcommands{
+    position: relative;
+    top: 0vh
+}
+
+.command{
+    margin-top: 9vh;
+}
+
+#home{
+    position: relative;
+}

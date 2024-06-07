@@ -1,0 +1,143 @@
+
+.container{
+    background-image: url(./../appPhoto/logo.png);
+    background-position: 50% 17px;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+    background-color: white;
+    width: 80vh;
+    height: 70vh;
+    margin: auto;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    transition: transform 0.2s;
+    text-align: center;
+    position: relative;
+    top: 20vh;
+}
+
+.logoName{
+  position: relative;
+  left: 0vw;
+}
+
+.login{
+    position: relative;
+    top: -3vh;
+    left: 0.5vw;
+}
+
+.label{
+    text-align:right;
+    color: gray;
+}
+
+.inputbox {
+    position: relative;
+    top: 9vh;
+
+    width: 196px;
+    margin: auto;
+    padding: 10px;
+  }
+  
+  .inputbox input {
+    position: relative;
+    width: 100%;
+    text-align: right;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    color: #23242a;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+  }
+  
+
+  
+  .inputbox input:valid ~span,
+  .inputbox input:focus ~span {
+    color: skyblue;
+    transform: translateX(-10px) translateY(-34px);
+    font-size: 0,75em;
+  }
+  
+  .inputbox i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: skyblue;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 9;
+  }
+  
+  .inputbox input:valid ~i,
+  .inputbox input:focus ~i {
+    height: 44px;
+  }
+
+  .allInput{
+    position: relative;
+    top: -7vh
+  }
+
+
+  .btn {
+    position: relative;
+    top: -1vw;
+    left: -0vw;
+    padding: 1rem 2rem;
+    width: 13vw;
+    height: 5vw;
+    font-weight: 700;
+    background: rgb(255, 255, 255);
+    color:black;
+    border-radius: .5rem;
+    border-bottom: 2px solid rgb(4, 178, 247);
+    border-right: 2px solid  rgb(4, 178, 247);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    transition-duration: 1s;
+    font-size: 1.2vw;
+    cursor: pointer;
+    transition-property: border-top, 
+       border-left, 
+       border-bottom,
+       border-right,
+       box-shadow;
+   }
+   
+   .btn:hover {
+    border-top: 2px solid  rgb(4, 178, 247);
+    border-left: 2px solid  rgb(4, 178, 247);
+    border-bottom: 2px solid skyblue;
+    border-right: 2px solid skyblue;
+    box-shadow: rgba(0, 141, 235, 0.4) 5px 5px, rgba(0, 141, 235, 0.4)10px 10px, rgba(0, 141, 235, 0.4) 15px 15px;
+   }
+   .bold{
+    font-family: "El Messiri", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+  }
+
+   .signUp{
+    position: relative;
+    left: 45%;
+    top: -18%;
+   }
+
+   .gaist{
+    position: relative;
+    left: 27%;
+    top: -10%;
+   }
