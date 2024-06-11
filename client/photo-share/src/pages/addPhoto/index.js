@@ -1,11 +1,9 @@
 // صفحة أضافة الصور
 
-import { Add, Description } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import style from "./../../assets/css/addPhoto.module.css";
 import axios from 'axios';
 import cameraBackground from './../../assets/appPhoto/cameraBackground.png';
-import path from 'path-browserify';
 
 const AddPhoto = (props) => {
     const { photoState, validate, fetchData } = props;
@@ -71,6 +69,7 @@ const AddPhoto = (props) => {
         formData.append('description', description);
         try {
             const response = await axios.post("http://localhost:4000/api/photos/upload", formData);
+            validate("تم إضافة الصورة" , true )
             photoState()
         } catch (e) {
             validate(e.response?.data.massage);

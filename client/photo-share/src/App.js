@@ -23,6 +23,7 @@ function App() {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     setPage('home')
     }
+    
   },[])
 
   // وقت انتهاء الاشعار بالأخطاء
@@ -35,8 +36,9 @@ function App() {
   },[validationErrors])
 
 // الأشعار بالأخطاء
-  const validate = (err) =>{
-    setValidationErrors(validationErrors=> [...validationErrors, err])
+  const validate = (err, isGreen) =>{
+    err = [err , isGreen]
+    setValidationErrors(validationErrors=> [...validationErrors, err ])
   }
   
   // عملية تسجيل الخروج

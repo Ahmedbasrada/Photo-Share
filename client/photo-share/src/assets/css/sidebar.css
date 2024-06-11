@@ -75,10 +75,6 @@ h5{
 
 
 
-.command:hover {
-    background-color: rgb(73, 73, 73);
-}
-
 .homeName{
     cursor: context-menu;
 }
@@ -97,6 +93,7 @@ h5{
 }
 
 .command{
+    position: relative;
     margin-top: 9vh;
 }
 

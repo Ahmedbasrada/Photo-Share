@@ -2,13 +2,12 @@
 
 import React, {useState,useEffect} from 'react';
 import style from "./../../assets/css/home.module.css"
-import Sidebar from '../sidebar/sidebar'
+import Sidebar from '../../componets/sidebar/sidebar'
 import AddPhoto from '../addPhoto';
 import axios from 'axios'
-import ImagePreview from '../imagePreview';
-import Delete from '../delete';
-import { trusted } from 'mongoose';
-import BigImage from '../big_image';
+import ImagePreview from '../../componets/imagePreview';
+import Delete from '../../componets/delete';
+import BigImage from '../../componets/big_image';
 
 
 
@@ -32,6 +31,7 @@ const Home = (props) =>{
     const [isBigImage, setIsBigImage] = useState(false)
     const [blur,serBlur ] = useState(false)
     const [trash, setTrash] = useState(false)
+    const [guest, setGuest] = useState(false)
 
     // العوده حالات تكبير واضافة و تعتيم الصور
     const photoState = () =>{
@@ -94,6 +94,9 @@ const bigImage = (src, title , description, isEdit,id) =>{
 
 
     }
+
+
+
     // أجرائات تغيير الصفحة
     useEffect(() => {
         let gallery = document.querySelector(`.${style.gallery}`)
@@ -181,7 +184,13 @@ const bigImage = (src, title , description, isEdit,id) =>{
 
     }
 
-    
+        // أجرائات الضيف
+
+        if(!localStorage.getItem('name') && !guest){
+            setGuest(true)
+        }else if(localStorage.getItem('name') && guest){
+            setGuest(false)
+        }
 
     return(
         <div className={style.bigBox}>
@@ -189,6 +198,9 @@ const bigImage = (src, title , description, isEdit,id) =>{
             <h1 className={style.gallery} >معرض الصور</h1>
             <div className={style.addPhoto}>
             <button className={style.button} onClick={() => {
+                if(guest){
+                    return validate("عليك تسجيل الدخول أولا" )
+                }
                 setAddPhoto(true)
                 setIsBigImage(false)
             }
@@ -201,9 +213,9 @@ const bigImage = (src, title , description, isEdit,id) =>{
             <div className={style.HomeDiv}>
                 {trash && <Delete backTrash={backTrash} validate={validate} ImagePreviews ={images.imagePreviews} id={id} title={title}/>}
                 {isBigImage  && <BigImage id={id}src={src} title={title} isEdit = {isEdit} photoState={photoState} description ={description} validate ={validate} />}
-                {addPhoto ? <AddPhoto photoState={photoState} validate ={validate} /> :  <ImagePreview  trashPop = {trashPop}blur ={blur}bigImageFun={bigImage} view = {view} images = {images} visibal={visibal} validate={validate}   fetchData={fetchData}/> }
+                {addPhoto ? <AddPhoto photoState={photoState} validate ={validate} /> :  <ImagePreview guest = {guest}  trashPop = {trashPop}blur ={blur}bigImageFun={bigImage} view = {view} images = {images} visibal={visibal} validate={validate}   fetchData={fetchData}/> }
             </div>
-            <Sidebar validate={validate} photoState={photoState} mousePointing ={mousePointing} signOut = {signOut} clicked = {clicked} homePageSwitcher = {homePageSwitcher}/>
+            <Sidebar guest = {guest}validate={validate} photoState={photoState} mousePointing ={mousePointing} signOut = {signOut} clicked = {clicked} homePageSwitcher = {homePageSwitcher}/>
         </div>
     )
 }

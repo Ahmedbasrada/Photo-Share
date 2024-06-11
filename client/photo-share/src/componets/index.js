@@ -1,6 +1,6 @@
-import Login from "./login/login";
-import SignUp from "./signUp/signUp.js";
-import Home from "./Home"
+import Login from "../pages/login/login.js";
+import SignUp from "../pages/signUp/signUp.js";
+import Home from "../pages/Home/index.js"
 
 
 

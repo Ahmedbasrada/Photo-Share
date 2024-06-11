@@ -76,7 +76,13 @@
     height: 1.264vh;
   }
   
-
+.closeDiv{
+  position: absolute;
+  left: -62%;
+  top: 5%;
+  width: 225%;
+  padding-bottom: 115%;
+}
 
   .titleShow {
     overflow: clip;

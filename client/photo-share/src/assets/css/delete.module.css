@@ -13,6 +13,14 @@
 
 }
 
+.closeDiv{
+  position: absolute;
+  left: -60%;
+  width: 220%;
+  padding-bottom: 100%;
+  z-index: 5;
+}
+
 h1{
     position: relative;
     top: -10%;

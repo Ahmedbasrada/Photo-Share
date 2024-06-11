@@ -20,6 +20,7 @@ const Delete = (props) =>{
                 imageName:imageName,
             }
         })
+        validate("تم الحذف بنجاح", true)
         backTrash(true)
         }catch(e){
             validate(e.response?.data.massage)
@@ -29,6 +30,9 @@ const Delete = (props) =>{
     
 
     return(
+    <>
+              <div className={style.closeDiv} onClick={() => backTrash(false)}></div>
+
         <div className={style.container}>
             <h1>حذف الصورة</h1>
             <h3>"هل أنت متأكد من رغبتك في حذف "{title}</h3>
@@ -87,7 +91,7 @@ const Delete = (props) =>{
 </button>
 
         </div>
-        
+        </>
     )
 
 }
