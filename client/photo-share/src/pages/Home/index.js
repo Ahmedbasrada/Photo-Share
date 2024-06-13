@@ -75,20 +75,25 @@ const bigImage = (src, title , description, isEdit,id) =>{
 
     // تحويل الصفحات الخاصة بالصفحة الرئيسية
     const homePageSwitcher = (page) =>{
+            // اظهار اعدادات المسؤول
+            if(page =='personal' && localStorage?.getItem("name")){
+                setVisibal(true)
+        }else{
+                setVisibal(false)
+        }
         if(page != 'home') setCliced(true)
         setPage(page)
-        
 }
 
     //    أعدادات صفحة معرض الصور
     const home = () =>{
-        document.querySelector(`.${style.gallery}`).innerHTML = 'معرض الصور'
+        document.querySelector(`[class*="${style.gallery}"]`).innerHTML = 'معرض الصور'
         setfetchDataMain(false)
        
     }
     // أعدادات الصفحة الشخصية
     const personal = () =>{
-        document.querySelector(`.${style.gallery}`).innerHTML = 'صوري'
+        document.querySelector(`[class*="${style.gallery}"]`).innerHTML = 'صوري'
         setfetchDataMain(true)
         
 
@@ -99,7 +104,7 @@ const bigImage = (src, title , description, isEdit,id) =>{
 
     // أجرائات تغيير الصفحة
     useEffect(() => {
-        let gallery = document.querySelector(`.${style.gallery}`)
+        let gallery = document.querySelector(`[class*="${style.gallery}"]`)
     switch(page){
         case 'home':
             home()
@@ -122,7 +127,6 @@ const bigImage = (src, title , description, isEdit,id) =>{
         //  عمليات طلب البيانات
         const fetchData = async () => {
             try {
-                        setVisibal(false)
 
                 let response
                 if(fetchDataMain){
@@ -141,42 +145,37 @@ const bigImage = (src, title , description, isEdit,id) =>{
                 
                  
                   setImages(response?.data);
-
                   if(response?.data.imageInfo.length != 0) setView(true);
+                 
 
 
                   else setView(false)
 
-                   // اظهار اعدادات المسؤول
-                    if(page =='personal' && localStorage?.getItem("name")){
-                        setVisibal(true)
-                    }else{
-                        setVisibal(false)
-                    }
             } catch (e) {
                 validate(e.response?.data.massage)
                 homePageSwitcher('home')
 
             }
         };
+      
 
         // الأعدادات المظهرية لميكانيكة الصفحة الرئيسة
     const mousePointing = (e) =>{
-        let gallery = document.querySelector(`.${style.gallery}`)
+        let gallery = document.querySelector(`[class*="${style.gallery}"]`)
         gallery.style.transition = '0.3s ease'
         if(e) {
-            document.querySelector(`.${style.HomeDiv}`).style.width = '81.5%'
+            document.querySelector(`[class*="${style.HomeDiv}"]`).style.width = '81.5%'
             if( page == 'personal'){
-                document.querySelector(`.${style.gallery}`).style.left = '17vw'
+                document.querySelector(`[class*="${style.gallery}"]`).style.left = '17vw'
             }else if( page == 'home'){
-                document.querySelector(`.${style.gallery}`).style.left = '13vw'
+                document.querySelector(`[class*="${style.gallery}"]`).style.left = '13vw'
             }
         }else {
-            document.querySelector(`.${style.HomeDiv}`).style.width = '89%'
+            document.querySelector(`[class*="${style.HomeDiv}"]`).style.width = '89%'
             if( page == 'personal'){
-                document.querySelector(`.${style.gallery}`).style.left = '24vw'
+                document.querySelector(`[class*="${style.gallery}"]`).style.left = '24vw'
             }else if( page == 'home'){
-                document.querySelector(`.${style.gallery}`).style.left = '20vw'
+                document.querySelector(`[class*="${style.gallery}"]`).style.left = '20vw'
             };
                 }
        

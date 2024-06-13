@@ -9,7 +9,9 @@ const Alert = (props) =>{
             if(props.validationMassage[props.validationMassage.length -1][1]){
                 console.log(props.validationMassage[props.validationMassage.length -1][1])
                 document.querySelector('.alert-container').style.backgroundColor = 'green'
+                
             }else{
+                
                 document.querySelector('.alert-container').style.backgroundColor = 'red'
 
             }

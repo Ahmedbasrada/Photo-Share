@@ -11,7 +11,7 @@ const AddPhoto = (props) => {
 
     const viewImage = () => {
         const imagePreview = document.getElementById('imagePreview');
-        document.querySelector(`.${style.photoView}`).style.backgroundImage = '';
+        document.querySelector(`[class*="${style.photoView}"]`).style.backgroundImage = '';
         
         // في حال أضافة صوره وفي حال عدمة
         if (file) {
@@ -26,7 +26,7 @@ const AddPhoto = (props) => {
     };
     // أعدادات أضافة الصورة عنطريق السحب والأفلات
     useEffect(() => {
-        const dropArea = document.querySelector(`.${style.design}`);
+        const dropArea = document.querySelector(`[class*="${style.design}"]`);
 
         dropArea.addEventListener('dragover', (e) => {
             e.preventDefault();

@@ -7,7 +7,6 @@ import View from "../view";
 
 
 
-
 const BigImage = (props) =>{
     const {src, title, description, photoState, isEdit, id, validate} = props
     

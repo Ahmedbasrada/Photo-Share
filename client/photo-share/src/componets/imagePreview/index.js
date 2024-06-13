@@ -7,12 +7,16 @@ const ImagePreview = (props) => {
     const { images, view,visibal, validate,bigImageFun , blur,
         trashPop , guest} = props;
 
+        useEffect(() =>{
+
+        },[images])
         // المظهر الضبابي
     useEffect(() =>{
         if(!blur && document.querySelector('.wrap')) {
             document.querySelector('.wrap').style.filter =  ''
         }
     },[blur])
+   
 
     // في حال عدم توفر الصور
         if (!view) {
@@ -20,6 +24,8 @@ const ImagePreview = (props) => {
                 !لا تتوفر صور للعرض
                 </div>;
         }
+
+        
 
 
 
@@ -35,32 +41,33 @@ const ImagePreview = (props) => {
             const description = document.getElementById(`${id}_description`).innerHTML
             bigImageFun(image, title, description, isEdit,id) 
         }
+        
 
-      
-    return (
-        <div className="wrap">
-            {images.imageInfo.map((image, index) => (
-                
-                <div className="card" key={index}>
-
-                    <div className="card-image-container" onClick={ e => cliked(image._id, false)}>
-                        <img id={`${image._id}_image`}src={`data:image;base64, ${images.imagePreviews.find((item) => item.name.includes(image._id))?.data}`}
+        return (
+            <div className="wrap">
+                {images.imageInfo.map((image, index) => (
+                    
+                    <div className="card" key={index}>
+    
+                        <div className="card-image-container" onClick={ e => cliked(image._id, false)}>
+                            <img id={`${image._id}_image`}src={`data:image;base64, ${images.imagePreviews.find((item) => item.name.includes(image._id))?.data}`}
+                            
+                            height='100%' width='100%' alt={`Image ${index}`} />
+                        </div>
                         
-                        height='100%' width='100%' alt={`Image ${index}`} />
+                        <p className="card-title" dir="rtl" id={`${image._id}_title`}>{image.title}</p>
+                        <p className="card-des" dir="rtl" id={`${image._id}_description`}>{image.description}</p>
+                        <div className="downBar">
+                            <DownBar cliked={cliked} visibal={visibal} validate ={validate} image={image} images={images} guest ={guest}/>
+                        </div>
+    
+                        
+                       
                     </div>
-                    
-                    <p className="card-title" dir="rtl" id={`${image._id}_title`}>{image.title}</p>
-                    <p className="card-des" dir="rtl" id={`${image._id}_description`}>{image.description}</p>
-                    <div className="downBar">
-                        <DownBar cliked={cliked} visibal={visibal} validate ={validate} image={image} images={images} guest ={guest}/>
-                    </div>
-
-                    
-                   
-                </div>
-            ))}
-        </div>
-    );
+                ))}
+            </div>
+        );
+    
 }
 
 
