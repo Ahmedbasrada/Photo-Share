@@ -9,10 +9,10 @@ const View = (props) => {
     return(
         <div>
         <div className={style.titleShow}>
-        <h1>{title}</h1>
+        <h1 dir="rtl" >{title}</h1>
       </div>
       <div className={style.descriptionShow}>
-        <h3>{description}</h3>
+        <h3 dir="rtl" >{description}</h3>
         
       </div>
       </div>

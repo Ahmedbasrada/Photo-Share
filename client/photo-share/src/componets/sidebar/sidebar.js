@@ -18,7 +18,7 @@ const Sidebar = (props) => {
 
   // أعدادات في حال الضغظ
   const Click = (e,page) =>{
-    if(!localStorage.getItem('name') && page != "signOut") return validate('غير مصرح بك');
+    if(!localStorage.getItem('name') && page == "personal") return validate('غير مصرح بك');
     let element = document.querySelectorAll('.command')
     element.forEach(item => {
       item.style.backgroundColor = 'rgb(31, 31, 31)'

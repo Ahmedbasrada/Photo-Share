@@ -64,7 +64,7 @@ const Edit = (props) =>{
        </div>
     
        <button onClick={() => Save()}>
-      <span className={style.button_top}> 
+      <span className={style.button_top}>
       حفظ
       </span>
     </button>
