@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"node ./server/bin/www\" \"client/photo-share && npm start\"",
+    "start": "concurrently \"node ./server/bin/www\" \"cd client/photo-share && npm start\"",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "nodemon": "nodemon ./bin/www",
-    "build": "client/photo-share && react-scripts build",
-    "test": "client/photo-share && react-scripts test",
-    "eject": "client/photo-share && react-scripts eject"
-  },
+    "server": "node ./server/bin/www",
+    "client": "cd client/photo-share && npm start",
+    "build": "cd client/photo-share && npm install && npm run build",
+    "test": "cd client/photo-share && npm test",
+    "eject": "cd client/photo-share && npm run eject"
+  },  
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cookie-parser": "~1.4.4",
