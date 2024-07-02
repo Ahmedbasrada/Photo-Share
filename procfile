@@ -1,1 +1,1 @@
-web: npm run start
+web: concurrently "node ./server/bin/www" "cd client/photo-share && npm start"
