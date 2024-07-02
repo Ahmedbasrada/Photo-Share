@@ -1,29 +1,14 @@
 {
-  "name": "server",
-  "version": "0.0.0",
-  "private": true,
+  "name": "final-project",
+  "version": "1.0.0",
+  "description": "<h1>برنامج ويب</h1>\r <h2>ناشر الصور</h2>\r <br/>\r <br/>\r <h3>عند التحميل يرجى تحميل المكتبات المطلوبة</h3>\r <h4>مكتبات الواجهة الامامية</h4>\r <code dir=\"rtl\">cd client</code>\r   <code dir=\"rtl\">cd photo-share</code>\r  <code dir=\"rtl\">npm i</code>\r  <h4>التشغيل</h4>\r   <code dir=\"rtl\">npm run start</code>",
+  "main": "index.js",
   "scripts": {
-    "start": "concurrently \"node ./server/bin/www\" \"cd client/photo-share && npm start\"",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node ./server/bin/www",
-    "client": "cd client/photo-share && npm start",
-    "build": "cd client/photo-share && npm install && npm run build",
-    "test": "cd client/photo-share && npm test",
-    "eject": "cd client/photo-share && npm run eject"
-  },
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/bin/www"
+  },,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "@fortawesome/free-brands-svg-icons": "^6.5.2",
-    "@fortawesome/free-regular-svg-icons": "^6.5.2",
-    "@fortawesome/free-solid-svg-icons": "^6.5.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
-    "bootstrap": "^5.3.3",
-    "concurrently": "^8.2.2",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "cros": "^1.0.1",
@@ -31,36 +16,13 @@
     "dotenv": "^16.4.5",
     "express": "~4.16.1",
     "express-fileupload": "^1.5.0",
-    "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.0",
     "morgan": "~1.9.1",
-    "path": "^0.12.7",
-    "path-browserify": "^1.0.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-dotenv": "^0.1.3",
-    "react-scripts": "5.0.1",
-    "reactstrap": "^9.2.2",
-    "web-vitals": "^2.1.4"
+    "path": "^0.12.7"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

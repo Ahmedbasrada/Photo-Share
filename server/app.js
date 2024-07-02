@@ -24,6 +24,17 @@ app.use(cors())
 app.use('/api/photos', photosRouter);
 app.use('/api/auth', usersRouter);
 
+
+app.get("/*", function (req, res){
+  res.sendFile(
+    path.join(__dirname, '../client/photo-share/build/index.html'),
+    function (err) {
+      if(err){
+      res.status(500).send(err)
+      }
+    }
+  )
+})
 // عمليه الاتصال بقاعده البيانات
 mongoose.connect(process.env.DB_URL).then(() => {
     console.log('Connected to MongoDB');
