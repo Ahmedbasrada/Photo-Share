@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose')
+const http = require('http')
 const cors = require('cors')
 
 var photosRouter = require('./routes/photos');
@@ -20,6 +21,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 app.use(cors())
 
+
+const server = http.createServer(app)
 // يوجد أثنين من المسارات
 app.use('/api/photos', photosRouter);
 app.use('/api/auth', usersRouter);
@@ -44,3 +47,7 @@ mongoose.connect(process.env.DB_URL).then(() => {
   });
 
 module.exports = app;
+
+
+const PORT = process.env.PORT || '3000';
+server.listen(PORT, () => console.log('Listen to port ' + PORT))
