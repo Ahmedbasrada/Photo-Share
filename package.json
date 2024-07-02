@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/bin/www",
-    "nodemon": "nodemon ./bin/www"
+    "start": "concurrently \"node ./server/bin/www\" \"client/photo-share && npm start\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "nodemon": "nodemon ./bin/www",
+    "build": "client/photo-share && react-scripts build",
+    "test": "client/photo-share && react-scripts test",
+    "eject": "client/photo-share && react-scripts eject"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
