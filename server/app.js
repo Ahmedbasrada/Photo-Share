@@ -28,16 +28,20 @@ app.use('/api/photos', photosRouter);
 app.use('/api/auth', usersRouter);
 
 
-app.get("/*", function (req, res){
+app.get("*", function (req, res) {
+  console.log("WHAITE")
   res.sendFile(
-    path.join(__dirname, '../client/photo-share/build/index.html'),
+    path.join(__dirname, '../client/photo-share/public/index.html'),
     function (err) {
-      if(err){
-      res.status(500).send(err)
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        console.log('File sent successfully');
       }
     }
-  )
-})
+  );
+});
+
 // عمليه الاتصال بقاعده البيانات
 mongoose.connect(process.env.DB_URL).then(() => {
     console.log('Connected to MongoDB');
