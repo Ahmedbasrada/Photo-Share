@@ -31,7 +31,7 @@ app.use('/api/auth', usersRouter);
 app.get("*", function (req, res) {
   console.log("WHAITE")
   res.sendFile(
-    path.join(__dirname, '../client/photo-share/public/index.html'),
+    path.join(__dirname, '../client/photo-share/build/index.html'),
     function (err) {
       if (err) {
         res.status(500).send(err);
