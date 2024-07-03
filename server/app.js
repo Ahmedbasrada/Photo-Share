@@ -27,6 +27,8 @@ const server = http.createServer(app)
 app.use('/api/photos', photosRouter);
 app.use('/api/auth', usersRouter);
 
+app.use(express.static(path.join(__dirname, '../client/photo-share/build')));
+
 
 app.get("*", function (req, res) {
   console.log("WHAITE")
