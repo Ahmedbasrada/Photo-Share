@@ -15,7 +15,7 @@ const DownBar = (props)=>{
         let data = {
             imageId: id
         }
-        const response = await axios.post("http://localhost:4000/api/photos/like",data)
+        const response = await axios.post("https://photoshare-server.vercel.app/api/photos/like",data)
         let likeCounter = document.getElementById(`${id}_likeCounter`) 
         if(response?.data.likeSituation === 'like'){
             likeCounter.innerHTML = parseInt(likeCounter.innerHTML) + 1

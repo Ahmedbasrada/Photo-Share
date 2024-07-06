@@ -39,7 +39,7 @@ const Edit = (props) =>{
         }
   
         try{
-          await axios.put('http://localhost:4000/api/photos/modify',data)
+          await axios.put('https://photoshare-server.vercel.app/api/photos/modify',data)
           validate("تم حفظ التغييرات" , true )
           close()
         }catch(e){

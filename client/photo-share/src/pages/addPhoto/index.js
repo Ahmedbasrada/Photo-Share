@@ -68,7 +68,7 @@ const AddPhoto = (props) => {
         formData.append('title', title);
         formData.append('description', description);
         try {
-            const response = await axios.post("http://localhost:4000/api/photos/upload", formData);
+            const response = await axios.post("https://photoshare-server.vercel.app/api/photos/upload", formData);
             validate("تم إضافة الصورة" , true )
             photoState()
         } catch (e) {

@@ -39,7 +39,7 @@ const Submit = async (e) =>{
     }
     // عملية تسجيل وأنشاء الحساب
    try{
-     const response = await axios.post("http://localhost:4000/api/auth/register", data)
+     const response = await axios.post("https://photoshare-server.vercel.app/api/auth/register", data)
      localStorage.setItem('name', response.data.name) 
      localStorage.setItem('id', response.data.id)
      localStorage.setItem('token', response.data.accessToken)

@@ -14,7 +14,7 @@ const Delete = (props) =>{
       // الحصول على الأسم الكامل المتواجد على الخادم
         const imageName = ImagePreviews.find((item) => item.name.includes(id))?.name
         try{
-        await axios.delete("http://localhost:4000/api/photos/delete" ,{
+        await axios.delete("https://photoshare-server.vercel.app/api/photos/delete" ,{
             params:{
                 imageId: id,
                 imageName:imageName,

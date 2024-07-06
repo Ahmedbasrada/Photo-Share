@@ -132,11 +132,11 @@ const bigImage = (src, title , description, isEdit,id) =>{
                 if(fetchDataMain){
                     // طلب الصور الشخصية
                 
-                     response = await axios.get("http://localhost:4000/api/photos/myPhotos")
+                     response = await axios.get("https://photoshare-server.vercel.app/api/photos/myPhotos")
                 }else{
                     // طلب جميع الصور
                     const id = localStorage.getItem('id')
-                    response = await axios.get("http://localhost:4000/api/photos/allPhotos",{
+                    response = await axios.get("https://photoshare-server.vercel.app/api/photos/allPhotos",{
                         params:{
                             id: id
                         }
