@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 app.use(cors({
-  origin: "*",
+  origin: 'https://photo-share-five.vercel.app'
 }));
 
 
