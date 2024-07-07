@@ -25,7 +25,7 @@ app.use(cors({
 
 
 const server = http.createServer(app)
-// يوجد أثنين من المسارات
+// يوجد أثنين من المسارات   
 app.use('/api/photos', photosRouter);
 app.use('/api/auth', usersRouter);
 
@@ -33,7 +33,6 @@ app.use(express.static(path.join(__dirname, '../client/photo-share/build')));
 
 
 app.get("*", function (req, res) {
-  console.log("WHAITE")
   res.sendFile(
     path.join(__dirname, '../client/photo-share/build/index.html'),
     function (err) {
