@@ -60,7 +60,7 @@ exports.upload = async (req, res) => {
     try {
         await image.mv(imagePath);
     } catch (err) {
-        return res.status(500).json({message: err});
+        return res.status(500).json({message: 'هنالك خطأ في تخزين البيانات داخل الخادم'});
     }
     console.log(6)
 
