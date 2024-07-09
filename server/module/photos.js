@@ -22,6 +22,11 @@ const ModelSchema = new mongoose.Schema({
         ref: 'Users',
         require: true
     },
+    imageURL:{
+      type: String,
+      require: true,
+      
+    },
        
  
 })

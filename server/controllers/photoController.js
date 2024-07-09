@@ -1,9 +1,10 @@
+require("dotenv").config()
 const jwtHelpers = require('../utils/jwtHelpers')
 const Likes = require('../module/likes')
 const Photos = require('../module/photos')
 const path = require("path")
 const fs = require("fs")
-
+const cloudinary = require('cloudinary').v2;
 
 
 // رفع الصور 
@@ -11,6 +12,12 @@ exports.upload = async (req, res)=>{
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).json({massage:'لم يتم تحميل أي صورة.'});
     }
+    cloudinary.config({
+    cloud_name: process.env.CLODINARY_CLOUD_NAME,
+    api_key: process.env.CLODINARY_API_KEY,
+    api_secret: process.env.CLODINARY_API_SECRET
+  });
+  
 
     // استقبال الصورة من الطلب
     const image = req.files.image;
@@ -29,30 +36,42 @@ exports.upload = async (req, res)=>{
                 {massage: `لا تقبل إلا ملفات من صيغة .png و .jpeg صيغة الملف المرسل هوا ${extname}`}
                 );
         }
-    // حفظ بيانات الصوره
-    try{
-     photo = await Photos({
-        title: title,
-        description: description,
-        user: req.userId
-    })
-    await photo.save()
-    }catch(e){
-        res.status(500).json({massage: e})
-    }
+    
 
     
     const uploadPath = path.join(__dirname, '..', 'photosStore');
+    const imagePath = path.join(uploadPath, Date.now() + extname)
     // حفظ الصورة في المسار المحدد على الخادم
-    image.mv(path.join(uploadPath, photo.id + extname), (err) => {
+    await image.mv(imagePath, (err) => {
         if (err) {
             return res.status(500).json(
                 {massage:err}
                 );
         }
-
-        res.status(200).json({massage:'تم تحميل الصورة بنجاح.'});
     });
+    let imageURL = null
+    await cloudinary.uploader.upload(imagePath, function(error, result) {
+        if (error) {
+            res.status(500).json({massage:'حصل خطأ في رفع الصورة'});
+        } else {
+          console.log('Image uploaded successfully:');
+          imageURL = result.url
+        }
+      });
+     // حفظ بيانات الصوره
+  try{
+    photo = await Photos({
+       title: title,
+       description: description,
+       user: req.userId,
+       imageURL: imageURL
+   })
+   await photo.save()
+   }catch(e){
+       res.status(500).json({massage: e})
+   }
+   res.status(200).json({massage:'تم تحميل الصورة بنجاح.'});
+
 
 }
 
@@ -62,22 +81,7 @@ exports.allPhotos = async(req,res)=>{
     const id = req.query.id
     try{
     const allPhotos = await Photos.find();
-    const likedPhoto = await Likes.find().where('user').equals(id).exec()
-    const imagePath = path.join(__dirname, '..','photosStore'); 
-    const imageFiles = fs.readdirSync(imagePath);
-    const imagePreviews = [];
-    
-    // قراءة محتوى كل ملف صورة وتحويله إلى base64
-    imageFiles.forEach(file => {
-        const filePath = path.join(imagePath, file);
-        const imageContent = fs.readFileSync(filePath, { encoding: 'base64' });
-
-        // إضافة عرض الصور للقائمة
-        imagePreviews.push({
-            name: file,
-            data: imageContent
-        });
-    });
+    const likedPhoto = await Likes.find().where('user').equals(id).exec()    
     res.status(200).json({imageInfo: allPhotos, liked: likedPhoto, imagePreviews: imagePreviews});
     }catch(e){
         return res.status(500).json({massage:"!حدثت مشكلة في التحميل"}) 
@@ -92,21 +96,6 @@ exports.myPhotos = async(req,res)=>{
     try{
     const allPhotos = await Photos.find().where('user').equals(req.userId).exec();
     const likedPhoto = await Likes.find().select('-_id').where('user').equals(req.userId).exec()
-    const imagePath = path.join(__dirname, '..','photosStore'); 
-    const imageFiles = fs.readdirSync(imagePath);
-    const imagePreviews = [];
-    
-    // قراءة محتوى كل ملف صورة وتحويله إلى base64
-    imageFiles.forEach(file => {
-        const filePath = path.join(imagePath, file);
-        const imageContent = fs.readFileSync(filePath, { encoding: 'base64' });
-
-        // إضافة عرض الصور للقائمة
-        imagePreviews.push({
-            name: file,
-            data: imageContent
-        });
-    });
     res.status(200).json({imageInfo: allPhotos, liked: likedPhoto, imagePreviews: imagePreviews});
     }catch(e){
         return res.status(500).json({massage:"!حدثت مشكلة في التحميل"}) 

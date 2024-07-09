@@ -50,7 +50,7 @@ const ImagePreview = (props) => {
                     <div className="card" key={index}>
     
                         <div className="card-image-container" onClick={ e => cliked(image._id, false)}>
-                            <img id={`${image._id}_image`}src={`data:image;base64, ${images.imagePreviews.find((item) => item.name.includes(image._id))?.data}`}
+                            <img id={`${image._id}_image`}src={`data:image;base64, ${image.URL}`}
                             
                             height='100%' width='100%' alt={`Image ${index}`} />
                         </div>
