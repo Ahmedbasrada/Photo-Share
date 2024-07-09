@@ -70,6 +70,12 @@ exports.upload = async (req, res)=>{
    }catch(e){
        res.status(500).json({massage: e})
    }
+   // حذف الصوره من الخادم
+    fs.unlink(path.join(uploadPath, imageName), (err) => {
+    if (err) {
+        return res.status(500).json({massage: err})
+    }
+  });
    res.status(200).json({massage:'تم تحميل الصورة بنجاح.'});
 
 
