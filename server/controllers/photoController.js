@@ -13,12 +13,17 @@ exports.upload = async (req, res) => {
         return res.status(400).json({message: 'لم يتم تحميل أي صورة.'});
     }
 
+
     // الارتباط ب Cloudinary
+    try{
     cloudinary.config({
         cloud_name: process.env.CLODINARY_CLOUD_NAME,
         api_key: process.env.CLODINARY_API_KEY,
         api_secret: process.env.CLODINARY_API_SECRET
     });
+    }catch(e){
+        return res.status(500).json({massage: "فشل الإرتباط بقاعدة البيانات"})
+    }
 
     // استقبال الصورة من الطلب
     const image = req.files.image;
