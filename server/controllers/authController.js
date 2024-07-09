@@ -60,6 +60,7 @@ exports.register =  async (req, res)=>{
 
 // تسجيل الدخول
 exports.login = async (req, res) =>{
+    console.log('haaaaaaaaaaaaaaaaaaaaa')
     const {email, password} = req.body
     // التأكد من الأخطاء المتوقعة
     if( !email || !password){
