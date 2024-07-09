@@ -85,11 +85,14 @@ exports.upload = async (req, res)=>{
 // طلب بيانات الصور كلها
 exports.allPhotos = async(req,res)=>{
     const id = req.query.id
+    try{
     const allPhotos = await Photos.find();
     if(!allPhotos) return
     const likedPhoto = await Likes.find().where('user').equals(id).exec()    
-    res.status(200).json({imageInfo: allPhotos, liked: likedPhoto, imagePreviews: imagePreviews});
-  
+    res.status(200).json({imageInfo: allPhotos, liked: likedPhoto});
+    }catch(e){
+        return res.status(500).json({massage:"!حدثت مشكلة في التحميل"}) 
+    }
 
     
 }
@@ -100,7 +103,7 @@ exports.myPhotos = async(req,res)=>{
     try{
     const allPhotos = await Photos.find().where('user').equals(req.userId).exec();
     const likedPhoto = await Likes.find().select('-_id').where('user').equals(req.userId).exec()
-    res.status(200).json({imageInfo: allPhotos, liked: likedPhoto, imagePreviews: imagePreviews});
+    res.status(200).json({imageInfo: allPhotos, liked: likedPhoto});
     }catch(e){
         return res.status(500).json({massage:"!حدثت مشكلة في التحميل"}) 
     }
