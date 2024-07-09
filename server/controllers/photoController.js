@@ -12,6 +12,7 @@ exports.upload = async (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).json({message: 'لم يتم تحميل أي صورة.'});
     }
+    console.log(1)
 
 
     // الارتباط ب Cloudinary
@@ -24,10 +25,13 @@ exports.upload = async (req, res) => {
     }catch(e){
         return res.status(500).json({massage: "فشل الإرتباط بقاعدة البيانات"})
     }
+    console.log(2)
+
 
     // استقبال الصورة من الطلب
     const image = req.files.image;
     const { title, description } = req.body;
+    console.log(3)
 
     // الأخطاء المتوقعة
     if (!title || !description) {
@@ -39,6 +43,8 @@ exports.upload = async (req, res) => {
     if (description.length > 81) {
         return res.status(401).json({message: `أحرف الوصف يجب أن لا تتجاوز 80 حرف. عدد الأحرف المكتوبة ${description.length}`});
     }
+    console.log(4)
+
 
     let extname = path.extname(image.name);
 
@@ -48,6 +54,7 @@ exports.upload = async (req, res) => {
 
     const uploadPath = path.join(__dirname, '..', 'photosStore');
     const imagePath = path.join(uploadPath, Date.now() + extname);
+    console.log(5)
 
     // حفظ الصورة في المسار المحدد على الخادم
     try {
@@ -55,6 +62,8 @@ exports.upload = async (req, res) => {
     } catch (err) {
         return res.status(500).json({message: err});
     }
+    console.log(6)
+
 
     let imageURL = null;
     try {
@@ -63,6 +72,7 @@ exports.upload = async (req, res) => {
     } catch (error) {
         return res.status(500).json({message: 'حصل خطأ في رفع الصورة'});
     }
+    console.log(7)
 
     // حفظ بيانات الصورة
     try {
@@ -76,6 +86,7 @@ exports.upload = async (req, res) => {
     } catch (e) {
         return res.status(500).json({message: e});
     }
+    console.log(8)
 
     // حذف الصورة من الخادم
     try {
@@ -83,6 +94,8 @@ exports.upload = async (req, res) => {
     } catch (err) {
         return res.status(500).json({message: err});
     }
+    console.log(9)
+
 
     return res.status(200).json({message: 'تم تحميل الصورة بنجاح.'});
 };
