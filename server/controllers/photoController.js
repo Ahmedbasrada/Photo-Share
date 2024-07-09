@@ -8,79 +8,79 @@ const cloudinary = require('cloudinary').v2;
 
 
 // رفع الصور 
-exports.upload = async (req, res)=>{
+exports.upload = async (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).json({massage:'لم يتم تحميل أي صورة.'});
+        return res.status(400).json({message: 'لم يتم تحميل أي صورة.'});
     }
-    // الارتباط ب cloudinary
+
+    // الارتباط ب Cloudinary
     cloudinary.config({
-    cloud_name: process.env.CLODINARY_CLOUD_NAME,
-    api_key: process.env.CLODINARY_API_KEY,
-    api_secret: process.env.CLODINARY_API_SECRET
-  });
-  
+        cloud_name: process.env.CLODINARY_CLOUD_NAME,
+        api_key: process.env.CLODINARY_API_KEY,
+        api_secret: process.env.CLODINARY_API_SECRET
+    });
 
     // استقبال الصورة من الطلب
     const image = req.files.image;
-    
-    const {title, description} = req.body
+    const { title, description } = req.body;
+
     // الأخطاء المتوقعة
-    if(!title || !description) return res.status(401).json({massage: "يرجى أضافة عنوان و وصف للصورة"});
-    if(title.length > 16) return res.status(401).json({massage:`أحرف العنوان يجب أن  لا تتجاوز 15 حرف عدد الاحرف المكتوبة ${title.length} `});
-    if(description.length > 81) return res.status(401).json({massage:`أحرف الوصف يجب أن  لا تتجاوز 80 حرف عدد الاحرف المكتوبة ${description.length} `});
-
-    let extname , photo;
-    extname = path.extname(image.name)
-
-    if (extname != '.jpeg' && extname != '.png' ){
-            return res.status(415).json(
-                {massage: `لا تقبل إلا ملفات من صيغة .png و .jpeg صيغة الملف المرسل هوا ${extname}`}
-                );
-        }
-    
-
-    
-    const uploadPath = path.join(__dirname, '..', 'photosStore');
-    const imagePath = path.join(uploadPath, Date.now() + extname)
-    // حفظ الصورة في المسار المحدد على الخادم
-    await image.mv(imagePath, (err) => {
-        if (err) {
-            return res.status(500).json(
-                {massage:err}
-                );
-        }
-    });
-    let imageURL = null
-    await cloudinary.uploader.upload(imagePath, function(error, result) {
-        if (error) {
-            return res.status(500).json({massage:'حصل خطأ في رفع الصورة'});
-        } else {
-          console.log('Image uploaded successfully:');
-          imageURL = result.url
-        }
-      });
-     // حفظ بيانات الصوره
-  try{
-    photo = await Photos({
-       title: title,
-       description: description,
-       user: req.userId,
-       imageURL: imageURL
-   })
-   await photo.save()
-   }catch(e){
-       return res.status(500).json({massage: e})
-   }
-   // حذف الصوره من الخادم
-    await fs.unlink(imagePath, (err) => {
-    if (err) {
-        return res.status(500).json({massage: err})
+    if (!title || !description) {
+        return res.status(401).json({message: "يرجى أضافة عنوان ووصف للصورة"});
     }
-  });
-   return res.status(200).json({massage:'تم تحميل الصورة بنجاح.'});
+    if (title.length > 16) {
+        return res.status(401).json({message: `أحرف العنوان يجب أن لا تتجاوز 15 حرف. عدد الأحرف المكتوبة ${title.length}`});
+    }
+    if (description.length > 81) {
+        return res.status(401).json({message: `أحرف الوصف يجب أن لا تتجاوز 80 حرف. عدد الأحرف المكتوبة ${description.length}`});
+    }
 
+    let extname = path.extname(image.name);
 
-}
+    if (extname !== '.jpeg' && extname !== '.png') {
+        return res.status(415).json({message: `لا تقبل إلا ملفات من صيغة .png و .jpeg. صيغة الملف المرسل هي ${extname}`});
+    }
+
+    const uploadPath = path.join(__dirname, '..', 'photosStore');
+    const imagePath = path.join(uploadPath, Date.now() + extname);
+
+    // حفظ الصورة في المسار المحدد على الخادم
+    try {
+        await image.mv(imagePath);
+    } catch (err) {
+        return res.status(500).json({message: err});
+    }
+
+    let imageURL = null;
+    try {
+        const result = await cloudinary.uploader.upload(imagePath);
+        imageURL = result.url;
+    } catch (error) {
+        return res.status(500).json({message: 'حصل خطأ في رفع الصورة'});
+    }
+
+    // حفظ بيانات الصورة
+    try {
+        const photo = new Photos({
+            title: title,
+            description: description,
+            user: req.userId,
+            imageURL: imageURL
+        });
+        await photo.save();
+    } catch (e) {
+        return res.status(500).json({message: e});
+    }
+
+    // حذف الصورة من الخادم
+    try {
+        await fs.promises.unlink(imagePath);
+    } catch (err) {
+        return res.status(500).json({message: err});
+    }
+
+    return res.status(200).json({message: 'تم تحميل الصورة بنجاح.'});
+};
 
 
 // طلب بيانات الصور كلها
