@@ -87,6 +87,7 @@ exports.allPhotos = async(req,res)=>{
     const id = req.query.id
     try{
     const allPhotos = await Photos.find();
+    if(!allPhotos) return
     const likedPhoto = await Likes.find().where('user').equals(id).exec()    
     res.status(200).json({imageInfo: allPhotos, liked: likedPhoto, imagePreviews: imagePreviews});
     }catch(e){
