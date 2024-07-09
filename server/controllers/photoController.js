@@ -12,6 +12,7 @@ exports.upload = async (req, res)=>{
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).json({massage:'لم يتم تحميل أي صورة.'});
     }
+    // الارتباط ب cloudinary
     cloudinary.config({
     cloud_name: process.env.CLODINARY_CLOUD_NAME,
     api_key: process.env.CLODINARY_API_KEY,
