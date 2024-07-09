@@ -71,7 +71,7 @@ exports.upload = async (req, res)=>{
        res.status(500).json({massage: e})
    }
    // حذف الصوره من الخادم
-    fs.unlink(path.join(uploadPath, imageName), (err) => {
+    await fs.unlink(imagePath, (err) => {
     if (err) {
         return res.status(500).json({massage: err})
     }
