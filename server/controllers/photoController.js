@@ -53,7 +53,7 @@ exports.upload = async (req, res)=>{
     let imageURL = null
     await cloudinary.uploader.upload(imagePath, function(error, result) {
         if (error) {
-            res.status(500).json({massage:'حصل خطأ في رفع الصورة'});
+            return res.status(500).json({massage:'حصل خطأ في رفع الصورة'});
         } else {
           console.log('Image uploaded successfully:');
           imageURL = result.url
@@ -69,7 +69,7 @@ exports.upload = async (req, res)=>{
    })
    await photo.save()
    }catch(e){
-       res.status(500).json({massage: e})
+       return res.status(500).json({massage: e})
    }
    // حذف الصوره من الخادم
     await fs.unlink(imagePath, (err) => {
@@ -77,7 +77,7 @@ exports.upload = async (req, res)=>{
         return res.status(500).json({massage: err})
     }
   });
-   res.status(200).json({massage:'تم تحميل الصورة بنجاح.'});
+   return res.status(200).json({massage:'تم تحميل الصورة بنجاح.'});
 
 
 }
