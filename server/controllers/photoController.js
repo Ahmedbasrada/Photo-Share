@@ -57,11 +57,8 @@ exports.upload = async (req, res) => {
     console.log(5)
 
     // حفظ الصورة في المسار المحدد على الخادم
-    try {
-        await image.mv(imagePath);
-    } catch (err) {
+   
         return res.status(500).json({message: 'هنالك خطأ في تخزين البيانات داخل الخادم'});
-    }
     console.log(6)
 
 
