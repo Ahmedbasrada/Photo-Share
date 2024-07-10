@@ -72,7 +72,6 @@ const AddPhoto = (props) => {
             validate("تم إضافة الصورة" , true )
             photoState()
         } catch (e) {
-            console.log(e)
             validate(e.response?.data.message);
         }
     };

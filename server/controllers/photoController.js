@@ -5,10 +5,13 @@ const Photos = require('../module/photos')
 const path = require("path")
 const fs = require("fs")
 const cloudinary = require('cloudinary').v2;
+const fileUpload = require('express-fileupload');
+
 
 
 // رفع الصور 
 exports.upload = async (req, res) => {
+   
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).json({message: 'لم يتم تحميل أي صورة.'});
     }
@@ -57,20 +60,17 @@ exports.upload = async (req, res) => {
     console.log(5)
 
     // حفظ الصورة في المسار المحدد على الخادم
-    try {
-        await image.mv(imagePath);
-    } catch (err) {
-        return res.status(500).json({message: 'هنالك خطأ في تخزين البيانات داخل الخادم'});
-    }
-    console.log(6)
+   
 
 
     let imageURL = null;
+    let public_id
     try {
-        const result = await cloudinary.uploader.upload(imagePath);
+        const result = await cloudinary.uploader.upload(image.tempFilePath);
         imageURL = result.url;
-    } catch (error) {
-        return res.status(500).json({message: 'حصل خطأ في رفع الصورة'});
+        public_id = result.public_id;
+        } catch (error) {
+        return res.status(500).json({message: error.path});
     }
     console.log(7)
 
@@ -80,7 +80,8 @@ exports.upload = async (req, res) => {
             title: title,
             description: description,
             user: req.userId,
-            imageURL: imageURL
+            imageURL: imageURL,
+            public_id:public_id
         });
         await photo.save();
     } catch (e) {
@@ -88,13 +89,7 @@ exports.upload = async (req, res) => {
     }
     console.log(8)
 
-    // حذف الصورة من الخادم
-    try {
-        await fs.promises.unlink(imagePath);
-    } catch (err) {
-        return res.status(500).json({message: err});
-    }
-    console.log(9)
+   
 
 
     return res.status(200).json({message: 'تم تحميل الصورة بنجاح.'});
@@ -135,13 +130,12 @@ exports.delete = async(req,res)=>{
     const {imageId, imageName } = req.query
     const image = await Photos.findById(imageId)
     if(req.userId == image?.user){
-        const uploadPath = path.join(__dirname, '..', 'photosStore');
-        // حذف الصوره من الخادم
-         fs.unlink(path.join(uploadPath, imageName), (err) => {
-            if (err) {
-                return res.status(500).json({massage: err})
-            }
-          });
+        try {
+            await cloudinary.uploader.destroy(imageId.public_id);
+        } catch (err) {
+        
+        return res.status(500).json({massage: 'حدث خطأ عند محاولة حذف الصورة'})
+        }
         //   حذف بيانات الصورة
         await image.deleteOne()
         // حذف اللايكات المرتبطة بالصورة

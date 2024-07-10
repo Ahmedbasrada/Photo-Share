@@ -12,13 +12,15 @@ var photosRouter = require('./routes/photos');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+app.use(fileUpload({
+  useTempFiles: true,        // استخدام الملفات المؤقتة
+  tempFileDir: '/tmp/'
+}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpload());
 app.use(cors({
   origin: 'https://photo-share-five.vercel.app'
 }));

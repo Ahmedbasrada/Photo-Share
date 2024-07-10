@@ -25,8 +25,14 @@ const ModelSchema = new mongoose.Schema({
     imageURL:{
       type: String,
       require: true,
+    },
+    public_id:{
+      type: String,
+      require: true,
       
     },
+
+
        
  
 })
