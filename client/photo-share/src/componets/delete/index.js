@@ -12,11 +12,12 @@ const Delete = (props) =>{
     // علمية طلب حذف الصورة
     const Delete = async() =>{
       // الحصول على الأسم الكامل المتواجد على الخادم
-      const data = {
-        imageId: id
-      }
         try{
-        await axios.delete("https://photoshare-server.vercel.app/api/photos/delete" ,data)
+        await axios.delete("https://photoshare-server.vercel.app/api/photos/delete" ,{
+            params:{
+                imageId: id,
+            }
+        })
         validate("تم الحذف بنجاح", true)
         backTrash(true)
         }catch(e){
