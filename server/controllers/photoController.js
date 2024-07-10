@@ -134,7 +134,7 @@ exports.delete = async(req,res)=>{
     console.log(image.public_id)
     if(req.userId == image?.user){
         try {
-            await cloudinary.uploader.destroy(imageId.public_id);
+            await cloudinary.uploader.destroy(image.public_id);
         } catch (err) {
         
         return res.status(500).json({massage: 'حدث خطأ عند محاولة حذف الصورة'})
