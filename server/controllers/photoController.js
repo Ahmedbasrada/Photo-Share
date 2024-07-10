@@ -127,7 +127,7 @@ exports.delete = async(req,res)=>{
             await cloudinary.uploader.destroy(image.public_id);
         } catch (err) {
         console.log(err)
-        return res.status(500).json({massage: err})
+        return res.status(500).json({massage: `${err}`})
         }
         //   حذف بيانات الصورة
         await image.deleteOne()
