@@ -14,9 +14,7 @@ const Delete = (props) =>{
       // الحصول على الأسم الكامل المتواجد على الخادم
         try{
         await axios.delete("https://photoshare-server.vercel.app/api/photos/delete" ,{
-            params:{
-                imageId: id,
-            }
+                imageId: id
         })
         validate("تم الحذف بنجاح", true)
         backTrash(true)
