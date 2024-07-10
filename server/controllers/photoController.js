@@ -129,6 +129,9 @@ exports.myPhotos = async(req,res)=>{
 exports.delete = async(req,res)=>{
     const {imageId, imageName } = req.query
     const image = await Photos.findById(imageId)
+    console.log(imageId)
+    console.log(image)
+    console.log(image.public_id)
     if(req.userId == image?.user){
         try {
             await cloudinary.uploader.destroy(imageId.public_id);
