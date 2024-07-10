@@ -63,7 +63,6 @@ function App() {
 
        </>
       );
-      break;
       case 'signUp':
       return (
         <>
@@ -71,7 +70,6 @@ function App() {
       {validationErrors.length !== 0 && <Alert validationMassage={validationErrors}/>}
        </>
       );
-      break;
 
       case 'home':
       return (
@@ -80,7 +78,6 @@ function App() {
       {validationErrors.length !== 0 && <Alert validationMassage={validationErrors}/>}
        </>
       );
-      break;
 
   }
   
