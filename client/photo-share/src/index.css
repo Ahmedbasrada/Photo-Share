@@ -14,16 +14,21 @@ body {
 }
 
 #redBox{
-  position: relative;
-  top: 50%;
-  display: none;
-  text-align: center;
-  height: 100vh;
   background-color: red;
+    position: absolute;
+    display: none;
+    text-align: right;
+    z-index: 100000;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
-@media (width-max: 800px){
+@media (max-width: 800px){
   #redBox{
-    display: block;
+    display: flex;
   }
 }
 
