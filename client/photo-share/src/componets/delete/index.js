@@ -8,16 +8,14 @@ import axios from "axios";
 
 const Delete = (props) =>{
 
-    const {id, title, backTrash, ImagePreviews,validate} = props
+    const {id, title, backTrash,validate} = props
     // علمية طلب حذف الصورة
     const Delete = async() =>{
       // الحصول على الأسم الكامل المتواجد على الخادم
-        const imageName = ImagePreviews.find((item) => item.name.includes(id))?.name
         try{
         await axios.delete("https://photoshare-server.vercel.app/api/photos/delete" ,{
             params:{
                 imageId: id,
-                imageName:imageName,
             }
         })
         validate("تم الحذف بنجاح", true)

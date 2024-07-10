@@ -127,7 +127,7 @@ exports.myPhotos = async(req,res)=>{
 
 // حذف الصوره
 exports.delete = async(req,res)=>{
-    const {imageId, imageName } = req.query
+    const {imageId } = req.query
     const image = await Photos.findById(imageId)
     console.log(imageId)
     console.log(image)
