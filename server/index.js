@@ -7,7 +7,7 @@ const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose')
 const http = require('http')
 const cors = require('cors')
-
+const cloudinary = require('cloudinary').v2;
 var photosRouter = require('./routes/photos');
 var usersRouter = require('./routes/users');
 
@@ -25,6 +25,16 @@ app.use(cors({
   origin: 'https://photo-share-five.vercel.app'
 }));
 
+// الارتباط ب Cloudinary
+try{
+  cloudinary.config({
+      cloud_name: process.env.CLODINARY_CLOUD_NAME,
+      api_key: process.env.CLODINARY_API_KEY,
+      api_secret: process.env.CLODINARY_API_SECRET
+  });
+  }catch(e){
+      console.log("failed to xconnicting with clodinary ")
+  }
 
 const server = http.createServer(app)
 // يوجد أثنين من المسارات   

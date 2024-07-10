@@ -4,9 +4,8 @@ const Likes = require('../module/likes')
 const Photos = require('../module/photos')
 const path = require("path")
 const fs = require("fs")
-const cloudinary = require('cloudinary').v2;
 const fileUpload = require('express-fileupload');
-
+const cloudinary = require('cloudinary').v2;
 
 
 // رفع الصور 
@@ -18,16 +17,7 @@ exports.upload = async (req, res) => {
     console.log(1)
 
 
-    // الارتباط ب Cloudinary
-    try{
-    cloudinary.config({
-        cloud_name: process.env.CLODINARY_CLOUD_NAME,
-        api_key: process.env.CLODINARY_API_KEY,
-        api_secret: process.env.CLODINARY_API_SECRET
-    });
-    }catch(e){
-        return res.status(500).json({massage: "فشل الإرتباط بقاعدة البيانات"})
-    }
+    
     console.log(2)
 
 
@@ -127,7 +117,7 @@ exports.myPhotos = async(req,res)=>{
 
 // حذف الصوره
 exports.delete = async(req,res)=>{
-    const {imageId } = req.query
+    const {imageId} = req.body
     const image = await Photos.findById(imageId)
     console.log(imageId)
     console.log(image)
@@ -136,7 +126,7 @@ exports.delete = async(req,res)=>{
         try {
             await cloudinary.uploader.destroy(image.public_id);
         } catch (err) {
-        
+        console.log(err)
         return res.status(500).json({massage: err})
         }
         //   حذف بيانات الصورة
