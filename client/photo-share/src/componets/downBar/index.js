@@ -8,7 +8,7 @@ const DownBar = (props)=>{
     const {cliked, validate, guest,
     image, images, visibal} = props
 
-    // عملية أضافة لايك
+    // عملية أضافة لايك.
  const like = async (id) =>{
     let like  = document.getElementById(`${id}_input`)
     try{   
